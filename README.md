@@ -5,5 +5,5 @@
 
 - Для запуска Postgres
 1. Выполнить команду: docker-compose -f docker-compose-postgres.yml up -d
-2. Выполнить команду: java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -jar artifacts/aqa-shop.jar
-3. Выполнить команду: gradlew -Ddb.url=jdbc:postgresql://localhost:5432/app clean test (./gradlew "-Ddb.url=jdbc:mysql://localhost:3306/app" clean test)
+2. Выполнить команду: java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
+3. Выполнить команду: gradlew -Ddb.url=jdbc:postgresql://localhost:5432/app clean test 
