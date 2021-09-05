@@ -20,10 +20,9 @@ allure {
     }
 }
 
-
 repositories {
-    mavenCentral()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -33,12 +32,12 @@ dependencies {
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'mysql:mysql-connector-java:8.0.25'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
-    testImplementation 'com.codeborne:selenide:5.19.0'
-    testImplementation 'mysql:mysql-connector-java:8.0.19'
-    testImplementation 'org.postgresql:postgresql:42.2.10'
+    testImplementation 'com.codeborne:selenide:5.24.0'
+    testImplementation 'org.postgresql:postgresql:42.2.23.jre7'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'io.rest-assured:json-schema-validator:4.4.0'
-    testImplementation 'io.qameta.allure:allure-selenide:2.13.3'
+    testImplementation 'io.qameta.allure:allure-selenide:2.14.0'
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.32'
 }
 
 test {

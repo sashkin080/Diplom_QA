@@ -1,7 +1,7 @@
 package ru.netology.test;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
-//import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
 import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CardCreditTest {
     private CardPayment cardPayment = new CardPayment();
@@ -23,7 +22,7 @@ class CardCreditTest {
     private final static String cardDECLINED = "4444444444444442";
 
 
-    /* @BeforeAll
+     @BeforeAll
      static void setUpAll() {
      SelenideLogger.addListener("allure", new AllureSelenide());
       }
@@ -31,7 +30,7 @@ class CardCreditTest {
     @AfterAll
     static void tearDownAll() {
     SelenideLogger.removeListener("allure");
-    }*/
+    }
 
     @BeforeEach
     void shouldOpen() {
