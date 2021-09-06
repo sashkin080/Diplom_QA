@@ -169,7 +169,6 @@ class CardCreditTest {
         cardPayment.creditPurchase();
         cardPayment.pageFieldInfo(cardNumber);
         cardPayment.checkErrorMessageCVC();
-        //filed
     }
 
 }

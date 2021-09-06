@@ -62,7 +62,7 @@ class CardPaymentTest {
         cardPayment.checkDeclinedMessage();
         assertEquals(statusDECLINED, DBHelper.getStatusFromPaymentEntity());
         assertEquals(DBHelper.getTransactionIdFromPaymentEntity(), DBHelper.getPaymentIdFromOrderEntity());
-//filed
+//failed
     }
 
     @Test
@@ -135,7 +135,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardNumber);
         cardPayment.checkErrorMessageOwnerSimbol();
-        //filed
+        //failing
     }
 
     @Test
@@ -145,7 +145,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardNumber);
         cardPayment.checkErrorMessageOwnerSimbol();
-        //filed
+        //failing
     }
 
     @Test
@@ -173,7 +173,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardNumber);
         cardPayment.checkErrorMessageCVC();
-        //filed
+        //failing
     }
 
 }

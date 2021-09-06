@@ -41,7 +41,7 @@ public class DBHelper {
     }
 
     public static String getCreditIdFromOrderEntity() throws SQLException {
-        return getScalarFromTable("credit_id", "order_entity");
+        return getScalarFromTable("payment_id", "order_entity");
     }
 
     public static String getStatusFromCreditRequestEntity() throws SQLException {
