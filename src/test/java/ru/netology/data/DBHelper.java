@@ -4,18 +4,15 @@ import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static java.sql.DriverManager.getConnection;
 
 public class DBHelper {
 
     private static final String url = System.getProperty("db.url");
     private static final String user = "app";
     private static final String password = "pass";
-
 
 
     public static String getScalarFromTable(String column, String tableName) throws SQLException {

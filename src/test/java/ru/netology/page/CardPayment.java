@@ -18,7 +18,7 @@ public class CardPayment {
 
     private SelenideElement checkApprovedMessage = $$(".notification__title").find(exactText("Успешно"));
     private SelenideElement checkDeclinedMessage = $$(".notification__title").find(exactText("Ошибка"));
- //   private SelenideElement checkDeclinedMessageClose = $$(".notification__closer").last();
+    //   private SelenideElement checkDeclinedMessageClose = $$(".notification__closer").last();
 
     private SelenideElement checkErrorMessageCard = $$(".input__top").find(exactText("Номер карты")).parent().
             $$(".input__sub").find(exactText("Неверный формат"));

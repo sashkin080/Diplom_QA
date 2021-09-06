@@ -24,12 +24,12 @@ class CardPaymentTest {
 
     @BeforeAll
     static void setUpAll() {
-    SelenideLogger.addListener("allure", new AllureSelenide());
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterAll
     static void tearDownAll() {
-    SelenideLogger.removeListener("allure");
+        SelenideLogger.removeListener("allure");
     }
 
 
@@ -149,16 +149,16 @@ class CardPaymentTest {
     }
 
     @Test
-    void ShouldBeDeclinedEmptyOwner()  {
-            val cardNumber = DataHelper.getCardInfo(cardAPPROVED, DataHelper.getValidMoth(),
-                    DataHelper.getValidYear(), DataHelper.getEmptyOwner(), DataHelper.getValidCvc());
-            cardPayment.debitPurchase();
-            cardPayment.pageFieldInfo(cardNumber);
-            cardPayment.checkErrorMessageOwner();
-        }
+    void ShouldBeDeclinedEmptyOwner() {
+        val cardNumber = DataHelper.getCardInfo(cardAPPROVED, DataHelper.getValidMoth(),
+                DataHelper.getValidYear(), DataHelper.getEmptyOwner(), DataHelper.getValidCvc());
+        cardPayment.debitPurchase();
+        cardPayment.pageFieldInfo(cardNumber);
+        cardPayment.checkErrorMessageOwner();
+    }
 
     @Test
-    void ShouldBeDeclinedInValidCvc()  {
+    void ShouldBeDeclinedInValidCvc() {
         val cardNumber = DataHelper.getCardInfo(cardAPPROVED, DataHelper.getValidMoth(),
                 DataHelper.getValidYear(), DataHelper.getValidOwner(), DataHelper.getInValidCvc());
         cardPayment.debitPurchase();
@@ -167,7 +167,7 @@ class CardPaymentTest {
     }
 
     @Test
-    void ShouldBeDeclinedEmptyCvc()  {
+    void ShouldBeDeclinedEmptyCvc() {
         val cardNumber = DataHelper.getCardInfo(cardAPPROVED, DataHelper.getValidMoth(),
                 DataHelper.getValidYear(), DataHelper.getValidOwner(), DataHelper.getEmptyCvc());
         cardPayment.debitPurchase();
@@ -175,5 +175,4 @@ class CardPaymentTest {
         cardPayment.checkErrorMessageCVC();
         //failing
     }
-
 }
