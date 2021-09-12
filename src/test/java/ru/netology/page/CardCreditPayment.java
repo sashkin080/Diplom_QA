@@ -6,11 +6,11 @@ import ru.netology.data.DataHelper;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class CardPayment {
-    private SelenideElement buyTourButton = $$(".button").find(exactText("Купить"));
+public class CardCreditPayment {
+    private SelenideElement buyTourInCreditButton = $$(".button").find(exactText("Купить в кредит"));
     private SelenideElement inputCardNumberField = $("input[type=\"text\"][placeholder=\"0000 0000 0000 0000\"]");
-    private SelenideElement inputMonthField = $("input[type=\"text\"][placeholder=\"08\"]");
-    private SelenideElement inputYearField = $("input[type=\"text\"][placeholder=\"22\"]");
+    private SelenideElement inputMonthField= $("input[type=\"text\"][placeholder=\"08\"]");
+    private SelenideElement inputYearField= $("input[type=\"text\"][placeholder=\"22\"]");
     private SelenideElement inputOwnerField = $$(".input").find(exactText("Владелец")).$(".input__control");
     private SelenideElement inputCVCField = $("input[type=\"text\"][placeholder=\"999\"]");
     private SelenideElement buyContinueButton = $$(".button").find(exactText("Продолжить"));
@@ -35,20 +35,18 @@ public class CardPayment {
     private SelenideElement checkErrorMessageCVC = $$(".input__top").find(exactText("CVC/CVV")).parent().
             $$(".input__sub").find(exactText("Неверный формат"));
 
-
-    public void debitPurchase() {
-        buyTourButton.click();
-    }
-
-
-    public CardPayment pageFieldInfo(DataHelper.CardInfo info) {
+    public CardCreditPayment pageFieldInfo(DataHelper.CardInfo info) {
         inputCardNumberField.setValue(info.getNumber());
         inputMonthField.setValue(info.getMonth());
         inputYearField.setValue(info.getYear());
         inputOwnerField.setValue(info.getOwner());
         inputCVCField.setValue(info.getCvc());
         buyContinueButton.click();
-        return new CardPayment();
+        return new CardCreditPayment();
+    }
+
+    public void creditPurchase() {
+        buyTourInCreditButton.click();
     }
 
 
@@ -93,3 +91,7 @@ public class CardPayment {
     }
 
 }
+
+
+
+

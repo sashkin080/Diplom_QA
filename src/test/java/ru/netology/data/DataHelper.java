@@ -3,7 +3,10 @@ package ru.netology.data;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+
 
 public class DataHelper {
     private DataHelper() {
@@ -24,19 +27,32 @@ public class DataHelper {
 
     static Faker fakerRus = new Faker(new Locale("ru"));
     static Faker fakerEng = new Faker(new Locale("en"));
-    //static Calendar calendar = new GregorianCalendar();
+    static Calendar calendar = new GregorianCalendar();
 
+
+
+    public static String cardAPPROVED() {
+        return "4444444444444441";
+    }
+    public static String cardDECLINED() {
+        return "4444444444444442";
+    }
+    public static String statusAPPROVED() {
+        return "APPROVED";
+    }
+    public static String statusDECLINED() {
+        return "DECLINED";
+    }
     public static String getInvalidNumberCard() {
         return "444444444444444";
     }
-
     public static String getEmptyNumberCard() {
         return "";
     }
 
     public static String getValidOwner() {
 
-        return fakerEng.name().fullName();
+        return "Ivan Ivanov";
     }
 
     public static String getInValidOwner() {
@@ -52,7 +68,7 @@ public class DataHelper {
     }
 
     public static String getValidMoth() {
-        return "09";
+        return String.format("%02d",calendar.get(Calendar.MONTH));
     }
 
     public static String getInValidMoth() {
@@ -67,8 +83,8 @@ public class DataHelper {
         return "";
     }
 
-    public static String getValidYear() {
-        return "21";
+    public static String getValidYear(int shift) {
+        return String.valueOf(calendar.get(Calendar.YEAR) + shift).substring(2);
     }
 
     public static String getLastYear() { return "20";}
