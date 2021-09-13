@@ -30,14 +30,11 @@ class CardPaymentTest {
     @BeforeEach
     void shouldOpen() {
         open("http://localhost:8080");
-    }
-
-    @AfterEach
-    void clearAll()  {
+        DBHelper.clearDBTables();
     }
 
     @Test
-    void shouldBeApproved() throws SQLException{
+    void shouldBeApproved() throws SQLException {
         val cardValidNumber = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
         cardPayment.debitPurchase();
@@ -45,10 +42,11 @@ class CardPaymentTest {
         cardPayment.checkApprovedMessage();
         assertEquals(DataHelper.statusAPPROVED(), DBHelper.getStatusFromPaymentEntity());
         assertEquals(DBHelper.getTransactionIdFromPaymentEntity(), DBHelper.getPaymentIdFromOrderEntity());
+        assertEquals("1", DBHelper.getNumberOfOrders());
     }
 
     @Test
-    void shouldBeDeclinedToBlockedCard() throws SQLException{
+    void shouldBeDeclinedToBlockedCard() throws SQLException {
         val cardInValidNumber = DataHelper.getCardInfo(DataHelper.cardDECLINED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
         cardPayment.debitPurchase();
@@ -56,6 +54,7 @@ class CardPaymentTest {
         cardPayment.checkDeclinedMessage();
         assertEquals(DataHelper.statusDECLINED(), DBHelper.getStatusFromPaymentEntity());
         assertEquals(DBHelper.getTransactionIdFromPaymentEntity(), DBHelper.getPaymentIdFromOrderEntity());
+        assertEquals("0", DBHelper.getNumberOfOrders());
 //failed
     }
 
@@ -66,6 +65,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageCard();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -75,6 +75,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageCard();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -84,6 +85,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageExpiredMonth();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -93,6 +95,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageExpiredMonth();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -102,6 +105,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageMonth();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -111,6 +115,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageYear();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -120,6 +125,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageYearExpired();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -129,6 +135,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageOwnerSimbol();
+        assertEquals("0", DBHelper.getNumberOfOrders());
         //failing
     }
 
@@ -139,6 +146,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageOwnerSimbol();
+        assertEquals("0", DBHelper.getNumberOfOrders());
         //failing
     }
 
@@ -149,6 +157,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageOwner();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -158,6 +167,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageCVC();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -167,17 +177,7 @@ class CardPaymentTest {
         cardPayment.debitPurchase();
         cardPayment.pageFieldInfo(cardInValidNumber);
         cardPayment.checkErrorMessageCVC();
+        assertEquals("0", DBHelper.getNumberOfOrders());
         //failing
-    }
-
-    @Test
-    void shouldBeEnteredIntoTheDatabase() {
-        val cardValidNumber = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
-                DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        DBHelper.clearDBTables();
-        cardPayment.debitPurchase();
-        cardPayment.pageFieldInfo(cardValidNumber);
-        cardPayment.checkApprovedMessage();
-        assertEquals("8", DBHelper.getNumberOfOrders1());
     }
 }

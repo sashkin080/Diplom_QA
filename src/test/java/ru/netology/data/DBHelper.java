@@ -51,13 +51,13 @@ public class DBHelper {
         return getScalarFromTable("bank_id", "credit_request_entity");
     }
 
-    public static String getNumberOfOrders(String column, String tableName)   {
+    public static String getNumberOfOrdersFromTable(String tableName)   {
         QueryRunner runner = new QueryRunner( );
         String numberOfOrders = new String();
         try (val conn = DriverManager.getConnection(url, user, password)
         ) {
-            val info = "SELECT " + column + "FROM" + tableName + "count(*)";
-            val result = runner.query(conn, info, new ScalarHandler<String>());
+            val info ="SELECT COUNT(*) FROM " + tableName; ;
+            val result =runner.query(conn, info, new ScalarHandler<Long>());
             numberOfOrders = String.valueOf(result);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,17 +65,17 @@ public class DBHelper {
         return numberOfOrders;
     }
 
-    public static String getNumberOfOrders1() {
-        return getNumberOfOrders("payment_id", "payment_entity");
+    public static String getNumberOfOrders() {
+        return getNumberOfOrdersFromTable("payment_entity");
     }
 
     public static void clearDBTables() {
         val runner = new QueryRunner();
         try (val conn = DriverManager.getConnection(url, user, password)
         ) {
-            runner.update(conn, "DELETE  FROM credit_request_entity;");
-            runner.update(conn, "DELETE  FROM payment_entity;");
-            runner.update(conn, "DELETE  FROM order_entity;");
+            runner.execute(conn, "DELETE  FROM credit_request_entity;");
+            runner.execute(conn, "DELETE  FROM order_etnity;");
+            runner.execute(conn, "DELETE  FROM payment_entity;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
