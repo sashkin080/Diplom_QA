@@ -37,7 +37,7 @@ class CardCreditTest {
     }
 
     @Test
-    void shouldBeApproved() throws SQLException {
+    void shouldBeApproved(){
         val cardValidNumber = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
         cardCreditPayment.creditPurchase();
@@ -45,10 +45,11 @@ class CardCreditTest {
         cardCreditPayment.checkApprovedMessage();
         assertEquals(DataHelper.statusAPPROVED(), DBHelper.getStatusFromPaymentEntity());
         assertEquals(DBHelper.getBankIdFromCreditRequestEntity(), DBHelper.getCreditIdFromOrderEntity());
+        assertEquals("1", DBHelper.getNumberOfOrders());
     }
 
     @Test
-    void shouldBeDeclinedToBlockedCard()throws SQLException {
+    void shouldBeDeclinedToBlockedCard() {
         val cardInValidNumber = DataHelper.getCardInfo(DataHelper.cardDECLINED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
         cardCreditPayment.creditPurchase();
@@ -56,6 +57,7 @@ class CardCreditTest {
         cardCreditPayment.checkDeclinedMessage();
         assertEquals(DataHelper.statusDECLINED(), DBHelper.getStatusFromPaymentEntity());
         assertEquals(DBHelper.getBankIdFromCreditRequestEntity(), DBHelper.getCreditIdFromOrderEntity());
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -65,6 +67,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageCard();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -74,6 +77,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageCard();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -83,6 +87,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageExpiredMonth();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -92,6 +97,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageExpiredMonth();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -101,6 +107,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageMonth();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -110,6 +117,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageYear();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -119,6 +127,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageYearExpired();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -128,6 +137,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageOwnerSimbol();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -137,6 +147,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageOwnerSimbol();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -146,6 +157,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageOwner();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -155,6 +167,7 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageCVC();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 
     @Test
@@ -164,5 +177,6 @@ class CardCreditTest {
         cardCreditPayment.creditPurchase();
         cardCreditPayment.pageFieldInfo(cardInValidNumber);
         cardCreditPayment.checkErrorMessageCVC();
+        assertEquals("0", DBHelper.getNumberOfOrders());
     }
 }

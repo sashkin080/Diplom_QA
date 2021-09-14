@@ -74,7 +74,7 @@ public class DBHelper {
         try (val conn = DriverManager.getConnection(url, user, password)
         ) {
             runner.execute(conn, "DELETE  FROM credit_request_entity;");
-            runner.execute(conn, "DELETE  FROM order_etnity;");
+            runner.execute(conn, "DELETE  FROM order_entity;");
             runner.execute(conn, "DELETE  FROM payment_entity;");
         } catch (SQLException e) {
             e.printStackTrace();
