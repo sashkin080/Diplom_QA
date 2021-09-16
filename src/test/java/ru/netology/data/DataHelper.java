@@ -52,15 +52,15 @@ public class DataHelper {
 
     public static String getValidOwner() {
 
-        return "Ivan Ivanov";
+        return fakerEng.name().firstName() + fakerEng.name().lastName();
     }
 
     public static String getInValidOwner() {
-        return "Ivanov-Ivan 22";
+        return fakerEng.name().firstName() + fakerEng.name().lastName() + "22!";
     }
 
     public static String getInValidOwnerRus() {
-        return fakerRus.name().lastName().firstName();
+        return fakerRus.name().firstName() + fakerRus.name().lastName();
     }
 
     public static String getEmptyOwner() {
