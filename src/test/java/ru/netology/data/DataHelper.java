@@ -60,7 +60,7 @@ public class DataHelper {
     }
 
     public static String getInValidOwnerRus() {
-        return fakerRus.name().lastName();
+        return fakerRus.name().lastName().firstName();
     }
 
     public static String getEmptyOwner() {
