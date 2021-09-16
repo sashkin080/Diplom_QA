@@ -35,6 +35,10 @@ public class DBHelper {
         return getScalarFromTable("status", "payment_entity");
     }
 
+    public static String getStatusFromCreditRequestEntity() {
+        return getScalarFromTable("status", "credit_request_entity");
+    }
+
     public static String getTransactionIdFromPaymentEntity() {
         return getScalarFromTable("transaction_id", "payment_entity");
     }
@@ -66,7 +70,7 @@ public class DBHelper {
     }
 
     public static String getNumberOfOrders() {
-        return getNumberOfOrdersFromTable("payment_entity");
+        return getNumberOfOrdersFromTable("order_entity");
     }
 
     public static void clearDBTables() {
