@@ -1,11 +1,5 @@
 # План автоматизированного тестирования покупки тура в Маракеш
 
-# Документация
-
- - [План тестирования]( https://github.com/sashkin080/Diplom_QA/blob/master/docs/plan.md)
- - [Отчёт о проведённом тестировании](https://github.com/sashkin080/Diplom_QA/blob/master/docs/Report.md)
- - [Отчёт о проведённой автоматизации](https://github.com/sashkin080/Diplom_QA/blob/master/docs/Summary.md)
-
 ## Начало работы
 
 Cклонировать репозиторий вполнив команду git clone https://github.com/sashkin080/Diplom_QA
@@ -40,3 +34,9 @@ Cклонировать репозиторий вполнив команду git
 - Git - бесплатное ПО.
 - Docker - бесплатное ПО.
 - Google Chrome - беслатное ПО.
+
+# Документация
+
+ - [План тестирования]( https://github.com/sashkin080/Diplom_QA/blob/master/docs/plan.md)
+ - [Отчёт о проведённом тестировании](https://github.com/sashkin080/Diplom_QA/blob/master/docs/Report.md)
+ - [Отчёт о проведённой автоматизации](https://github.com/sashkin080/Diplom_QA/blob/master/docs/Summary.md)
