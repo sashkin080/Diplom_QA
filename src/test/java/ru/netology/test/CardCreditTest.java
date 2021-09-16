@@ -7,14 +7,19 @@ import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import ru.netology.data.DBHelper;
 import ru.netology.page.CardCreditPayment;
+import ru.netology.page.CardPayment;
 import ru.netology.page.StartPage;
 
-import java.sql.SQLException;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CardCreditTest {
+
+    private StartPage startPage;
+    private CardCreditPayment cardCreditPayment = new CardCreditPayment();
+
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -27,17 +32,16 @@ class CardCreditTest {
 
     @BeforeEach
     void shouldOpen() {
-        open("http://localhost:8080");
+        startPage = open("http://localhost:8080",StartPage.class);
         DBHelper.clearDBTables();
     }
-    private CardCreditPayment cardCreditPayment = new CardCreditPayment();
-    private StartPage startPage = new StartPage();
+
 
     @Test
     void shouldBeApproved(){
         val validCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(validCard);
         cardCreditPayment.checkApprovedMessage();
         assertEquals(DataHelper.statusAPPROVED(), DBHelper.getStatusFromCreditRequestEntity());
@@ -49,7 +53,7 @@ class CardCreditTest {
     void shouldBeDeclinedToBlockedCard() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardDECLINED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkDeclinedMessage();
         assertEquals(DataHelper.statusDECLINED(), DBHelper.getStatusFromPaymentEntity());
@@ -61,7 +65,7 @@ class CardCreditTest {
     void shouldBeDeclinedInvalidCard() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.getInvalidNumberCard(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageCard();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -71,7 +75,7 @@ class CardCreditTest {
     void shouldBeDeclinedEmptyNumberCard() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.getEmptyNumberCard(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageCard();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -81,7 +85,7 @@ class CardCreditTest {
     void shouldBeDeclinedInValidMonth() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getInValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageExpiredMonth();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -91,7 +95,7 @@ class CardCreditTest {
     void shouldBeDeclinedExpiredShelfLifeCard() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getExpiredShelfLifeCard(),
                 DataHelper.getValidYear(0), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageExpiredMonth();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -101,7 +105,7 @@ class CardCreditTest {
     void shouldBeDeclinedEmptyMonth() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getEmptyMonth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageMonth();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -111,7 +115,7 @@ class CardCreditTest {
     void shouldBeDeclinedEmptyYear() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getEmptyYear(), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageYear();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -121,7 +125,7 @@ class CardCreditTest {
     void shouldBeDeclinedExpiredYear() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getLastYear(), DataHelper.getValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageYearExpired();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -131,7 +135,7 @@ class CardCreditTest {
     void shouldBeDeclinedInValidOwner() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getInValidOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageOwnerSimbol();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -141,7 +145,7 @@ class CardCreditTest {
     void shouldBeDeclinedInValidOwnerRus() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getInValidOwnerRus(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageOwnerSimbol();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -151,7 +155,7 @@ class CardCreditTest {
     void shouldBeDeclinedEmptyOwner() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getEmptyOwner(), DataHelper.getValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageOwner();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -161,7 +165,7 @@ class CardCreditTest {
     void shouldBeDeclinedInValidCvc() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getInValidCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageCVC();
         assertEquals("0", DBHelper.getNumberOfOrders());
@@ -171,7 +175,7 @@ class CardCreditTest {
     void shouldBeDeclinedEmptyCvc() {
         val invalidCard = DataHelper.getCardInfo(DataHelper.cardAPPROVED(), DataHelper.getValidMoth(),
                 DataHelper.getValidYear(1), DataHelper.getValidOwner(), DataHelper.getEmptyCvc());
-        startPage.creditPurchase();
+        CardCreditPayment cardCreditPayment = startPage.creditPurchase();
         cardCreditPayment.pageFieldInfo(invalidCard);
         cardCreditPayment.checkErrorMessageCVC();
         assertEquals("0", DBHelper.getNumberOfOrders());

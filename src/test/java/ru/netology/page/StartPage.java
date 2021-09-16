@@ -2,18 +2,21 @@ package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
 
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class StartPage {
-    private SelenideElement buyTourButton = $$(".button").find(exactText("Купить"));
-    private SelenideElement buyTourInCreditButton = $$(".button").find(exactText("Купить в кредит"));
+    private final SelenideElement buyTourButton = $$(".button").find(exactText("Купить"));
+    private final SelenideElement buyTourInCreditButton = $$(".button").find(exactText("Купить в кредит"));
 
-    public void debitPurchase() {
+    public CardPayment debitPurchase() {
         buyTourButton.click();
+        return new CardPayment();
     }
 
-    public void creditPurchase() {
+    public CardCreditPayment creditPurchase() {
         buyTourInCreditButton.click();
+        return new CardCreditPayment();
     }
 }
